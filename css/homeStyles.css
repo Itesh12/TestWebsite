@@ -13,6 +13,8 @@
     align-items: center;
     background-color: #1f1f2f;
     padding: 10px 20px;
+    position: relative;
+    z-index: 1000;
 }
 
 .navbar .logo img {
@@ -22,6 +24,7 @@
 .nav-right {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .nav-right .balance {
@@ -53,9 +56,12 @@
     position: absolute;
     right: 0;
     background-color: #f9f9f9;
-    min-width: 160px;
+    width: auto;
+    max-width: 200px; /* Prevents the dropdown from becoming too wide */
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    z-index: 1000;
+    overflow: hidden;
+    white-space: nowrap; /* Ensures no text overflow */
 }
 
 .dropdown-content a {
@@ -73,19 +79,19 @@
     display: block;
 }
 
-/* Main content styles */
-main {
-    padding: 20px;
-    text-align: center;
+/* Make dropdown responsive for smaller screens */
+@media only screen and (max-width: 600px) {
+    .dropdown-content {
+        right: 10px; /* Ensure the dropdown stays on the screen */
+        width: 95%; /* Makes sure the dropdown adapts to mobile width */
+    }
 }
 
-h2 {
-    margin-bottom: 10px;
-    font-size: 24px;
-}
-
-p {
-    font-size: 18px;
+@media only screen and (min-width: 601px) {
+    .dropdown-content {
+        right: 0;
+        width: 200px; /* Fixed width for larger screens */
+    }
 }
 
 /* Responsive design */
@@ -95,7 +101,6 @@ p {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
-        padding: 10px;
     }
 
     .nav-right {
@@ -110,19 +115,6 @@ p {
     .balance {
         font-size: 16px;
         margin-bottom: 10px;
-    }
-
-    .dropdown-content {
-        right: 0;
-        width: 100%;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    p {
-        font-size: 16px;
     }
 }
 
@@ -139,14 +131,6 @@ p {
     .nav-right i {
         font-size: 22px;
     }
-
-    h2 {
-        font-size: 22px;
-    }
-
-    p {
-        font-size: 18px;
-    }
 }
 
 /* Desktop view */
@@ -161,13 +145,5 @@ p {
 
     .nav-right i {
         font-size: 24px;
-    }
-
-    h2 {
-        font-size: 24px;
-    }
-
-    p {
-        font-size: 20px;
     }
 }
