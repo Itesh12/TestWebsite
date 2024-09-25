@@ -86,7 +86,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     localStorage.setItem('loggedInUserId', user.uid);
-    window.location.href = 'homepage.html'; // Redirect to home page
+    window.location.href = 'pages/home.html'; // Redirect to home page
   } catch (error) {
     const errorCode = error.code;
     console.error("Sign-in error code:", errorCode);
