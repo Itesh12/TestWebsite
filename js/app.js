@@ -82,3 +82,17 @@ onAuthStateChanged(auth, (user) => {
         window.location.href = 'pages/home.html'; // Redirect to home if user is already logged in
     }
 });
+
+// Get the logout button
+const logoutButton = document.getElementById('logoutButton');
+
+// Logout functionality
+logoutButton.addEventListener('click', () => {
+    signOut(auth).then(() => {
+        // Successfully logged out, redirect to login page
+        window.location.href = '../index.html';
+    }).catch((error) => {
+        // Handle any errors during logout
+        console.error('Error during logout:', error);
+    });
+});
