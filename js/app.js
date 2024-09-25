@@ -1,4 +1,8 @@
-// Firebase Configuration
+// Import necessary Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDPneL6Pk9fOpMiTilqoHcCDfG3pHD_Q9g",
     authDomain: "explora-3c682.firebaseapp.com",
@@ -7,11 +11,11 @@ const firebaseConfig = {
     messagingSenderId: "644439159668",
     appId: "1:644439159668:web:44c756d6507c6531b47221",
     measurementId: "G-62HJXTP4PM"
-  };
+};
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 // Variables for UI elements
 const authForm = document.getElementById('authForm');
@@ -47,13 +51,13 @@ authForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent the default form submission
     const email = emailInput.value;
     const password = passwordInput.value;
-    
+
     // Clear previous error messages
     errorDiv.textContent = '';
 
     if (isLogin) {
         // Login logic
-        auth.signInWithEmailAndPassword(email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 window.location.href = 'pages/home.html'; // Redirect to home on successful login
             })
@@ -62,7 +66,7 @@ authForm.addEventListener('submit', (e) => {
             });
     } else {
         // Register logic
-        auth.createUserWithEmailAndPassword(email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 window.location.href = 'pages/home.html'; // Redirect to home on successful registration
             })
@@ -73,7 +77,7 @@ authForm.addEventListener('submit', (e) => {
 });
 
 // Check if the user is already logged in
-firebase.auth().onAuthStateChanged((user) => {
+onAuthStateChanged(auth, (user) => {
     if (user) {
         window.location.href = 'pages/home.html'; // Redirect to home if user is already logged in
     }
