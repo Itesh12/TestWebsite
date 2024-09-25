@@ -14,165 +14,165 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #4070f4;
-  column-gap: 30px;
+  background-color: #4070f4; /* Background color for the container */
+  column-gap: 30px; /* Space between forms */
 }
 
 .form {
   position: absolute;
-  max-width: 430px;
+  max-width: 430px; /* Maximum width for forms */
   width: 100%;
-  padding: 30px;
-  border-radius: 6px;
-  background: #FFF;
+  padding: 30px; /* Padding inside forms */
+  border-radius: 6px; /* Rounded corners */
+  background: #FFF; /* Background color for forms */
 }
 
 .form.signup {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0; /* Initially hidden for signup */
+  pointer-events: none; /* Disable pointer events when hidden */
 }
 
 .forms.show-signup .form.signup {
-  opacity: 1;
-  pointer-events: auto;
+  opacity: 1; /* Show signup form */
+  pointer-events: auto; /* Enable pointer events */
 }
 
 .forms.show-signup .form.login {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0; /* Hide login form */
+  pointer-events: none; /* Disable pointer events */
 }
 
 header {
-  font-size: 28px;
-  font-weight: 600;
-  color: #232836;
-  text-align: center;
+  font-size: 28px; /* Header font size */
+  font-weight: 600; /* Header font weight */
+  color: #232836; /* Header font color */
+  text-align: center; /* Center align header text */
 }
 
 form {
-  margin-top: 30px;
+  margin-top: 30px; /* Space above forms */
 }
 
 .field {
-  position: relative;
-  height: 50px;
-  width: 100%;
-  margin-top: 20px;
-  border-radius: 6px;
+  position: relative; /* Relative position for field elements */
+  height: 50px; /* Height for input fields */
+  width: 100%; /* Full width for input fields */
+  margin-top: 20px; /* Margin above fields */
+  border-radius: 6px; /* Rounded corners for fields */
 }
 
 .field input,
 .field button {
-  height: 100%;
-  width: 100%;
-  border: none;
-  font-size: 16px;
-  font-weight: 400;
-  border-radius: 6px;
+  height: 100%; /* Full height for input and button */
+  width: 100%; /* Full width for input and button */
+  border: none; /* No border */
+  font-size: 16px; /* Font size for input and button */
+  font-weight: 400; /* Font weight for input and button */
+  border-radius: 6px; /* Rounded corners for input and button */
 }
 
 .field input {
-  outline: none;
-  padding: 0 15px;
-  border: 1px solid #CACACA;
+  outline: none; /* No outline */
+  padding: 0 15px; /* Padding inside input */
+  border: 1px solid #CACACA; /* Light gray border */
 }
 
 .field input:focus {
-  border-bottom-width: 2px;
+  border-bottom-width: 2px; /* Thicker bottom border on focus */
 }
 
 .eye-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  font-size: 18px;
-  color: #8b8b8b;
-  cursor: pointer;
-  padding: 5px;
+  position: absolute; /* Absolute position for eye icon */
+  top: 50%; /* Center vertically */
+  right: 10px; /* Position from right */
+  transform: translateY(-50%); /* Center icon */
+  font-size: 18px; /* Icon size */
+  color: #8b8b8b; /* Icon color */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 5px; /* Padding around icon */
 }
 
 .field button {
-  color: #fff;
-  background-color: #0171d3;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  color: #fff; /* Button text color */
+  background-color: #0171d3; /* Button background color */
+  transition: all 0.3s ease; /* Transition for button hover */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
 .field button:hover {
-  background-color: #016dcb;
+  background-color: #016dcb; /* Darker button color on hover */
 }
 
 .form-link {
-  text-align: center;
-  margin-top: 10px;
+  text-align: center; /* Center align form links */
+  margin-top: 10px; /* Margin above links */
 }
 
 .form-link span,
 .form-link a {
-  font-size: 14px;
-  font-weight: 400;
-  color: #232836;
+  font-size: 14px; /* Font size for links */
+  font-weight: 400; /* Font weight for links */
+  color: #232836; /* Color for links */
 }
 
 .form a {
-  color: #0171d3;
-  text-decoration: none;
+  color: #0171d3; /* Link color */
+  text-decoration: none; /* No underline */
 }
 
 .form-content a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Underline on hover */
 }
 
 .line {
-  position: relative;
-  height: 1px;
-  width: 100%;
-  margin: 36px 0;
-  background-color: #d4d4d4;
+  position: relative; /* Relative position for line */
+  height: 1px; /* Line height */
+  width: 100%; /* Full width for line */
+  margin: 36px 0; /* Margin above and below line */
+  background-color: #d4d4d4; /* Line color */
 }
 
 .line::before {
-  content: 'Or';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #FFF;
-  color: #8b8b8b;
-  padding: 0 15px;
+  content: 'Or'; /* Text inside line */
+  position: absolute; /* Absolute position for text */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center text */
+  background-color: #FFF; /* Background color for text */
+  color: #8b8b8b; /* Text color */
+  padding: 0 15px; /* Padding around text */
 }
 
 .media-options a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; /* Flex display for media options */
+  align-items: center; /* Center align items */
+  justify-content: center; /* Center align content */
 }
 
 a.facebook {
-  color: #fff;
-  background-color: #4267b2;
+  color: #fff; /* Facebook link text color */
+  background-color: #4267b2; /* Facebook background color */
 }
 
 a.facebook .facebook-icon {
-  height: 28px;
-  width: 28px;
-  color: #0171d3;
-  font-size: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
+  height: 28px; /* Icon height */
+  width: 28px; /* Icon width */
+  color: #0171d3; /* Icon color */
+  font-size: 20px; /* Icon font size */
+  border-radius: 50%; /* Round icon */
+  display: flex; /* Flex display for icon */
+  align-items: center; /* Center align icon */
+  justify-content: center; /* Center align icon */
+  background-color: #fff; /* Icon background color */
 }
 
 img.google-img {
-  height: 20px;
-  width: 20px;
+  height: 20px; /* Google icon height */
+  width: 20px; /* Google icon width */
 }
 
 @media screen and (max-width: 400px) {
   .form {
-    padding: 20px 10px;
+    padding: 20px 10px; /* Adjust padding for smaller screens */
   }
-}
+  }
