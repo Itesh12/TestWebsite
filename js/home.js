@@ -47,6 +47,6 @@ window.addEventListener("load", async () => {
     }
   } else {
     alert("User not logged in.");
-    window.location.href = "../index.html"; // Redirect to login if not logged in
+    window.location.href = "/index.html"; // Redirect to login if not logged in
   }
 });
