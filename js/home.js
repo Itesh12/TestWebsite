@@ -1,3 +1,7 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import {getAuth, onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import{getFirestore, getDoc, doc} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
+
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDPneL6Pk9fOpMiTilqoHcCDfG3pHD_Q9g",
@@ -8,35 +12,49 @@ const firebaseConfig = {
     appId: "1:644439159668:web:44c756d6507c6531b47221",
     measurementId: "G-62HJXTP4PM"
 };
+ 
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+  const auth=getAuth();
+  const db=getFirestore();
 
-const profileButton = document.getElementById('profileButton');
-const welcomeMessage = document.getElementById('welcomeMessage');
-const logoutButton = document.getElementById('logoutButton');
+  onAuthStateChanged(auth, (user)=>{
+    const loggedInUserId=localStorage.getItem('loggedInUserId');
+    if(loggedInUserId){
+        console.log(user);
+        const docRef = doc(db, "users", loggedInUserId);
+        getDoc(docRef)
+        .then((docSnap)=>{
+            if(docSnap.exists()){
+                const userData=docSnap.data();
+                document.getElementById('loggedUserFName').innerText=userData.firstName;
+                document.getElementById('loggedUserEmail').innerText=userData.email;
+                document.getElementById('loggedUserLName').innerText=userData.lastName;
 
-// Display welcome message with user's email
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        welcomeMessage.textContent = `Welcome, ${user.email}!`;
-    } else {
-        window.location.href = 'login.html'; // Redirect to login if not logged in
+            }
+            else{
+                console.log("no document found matching id")
+            }
+        })
+        .catch((error)=>{
+            console.log("Error getting document");
+        })
     }
-});
-
-// Logout functionality
-logoutButton.addEventListener('click', async () => {
-    try {
-        await firebase.auth().signOut();
-        window.location.href = 'login.html';
-    } catch (error) {
-        console.error('Error logging out: ', error);
+    else{
+        console.log("User Id not Found in Local storage")
     }
-});
+  })
 
-// Profile button functionality
-profileButton.addEventListener('click', () => {
-    alert("Profile button clicked!"); // Placeholder action
-    // You can redirect to a profile page or display user information here
-});
+  const logoutButton=document.getElementById('logout');
+
+  logoutButton.addEventListener('click',()=>{
+    localStorage.removeItem('loggedInUserId');
+    signOut(auth)
+    .then(()=>{
+        window.location.href='index.html';
+    })
+    .catch((error)=>{
+        console.error('Error Signing out:', error);
+    })
+  })
