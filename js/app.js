@@ -89,7 +89,6 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
  });
 
 // Login functionality
-// Login functionality
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault(); // Prevent form submission
   const email = document.getElementById("loginEmail").value;
