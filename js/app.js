@@ -1,32 +1,24 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+import { getFirestore, setDoc, doc, query, where, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDPneL6Pk9fOpMiTilqoHcCDfG3pHD_Q9g",
-  authDomain: "explora-3c682.firebaseapp.com",
-  projectId: "explora-3c682",
-  storageBucket: "explora-3c682.appspot.com",
-  messagingSenderId: "644439159668",
-  appId: "1:644439159668:web:44c756d6507c6531b47221",
-  measurementId: "G-62HJXTP4PM"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
 
-// Toggle between login and signup forms
-const forms = document.querySelector(".forms");
-const pwShowHide = document.querySelectorAll(".eye-icon");
-const links = document.querySelectorAll(".link");
-
 // Show/hide password functionality
-pwShowHide.forEach(eyeIcon => {
+document.querySelectorAll(".eye-icon").forEach(eyeIcon => {
   eyeIcon.addEventListener("click", () => {
     let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
 
@@ -42,43 +34,72 @@ pwShowHide.forEach(eyeIcon => {
   });
 });
 
-// Toggle between forms
-links.forEach(link => {
+// Toggle between login and signup forms
+document.querySelectorAll(".link").forEach(link => {
   link.addEventListener("click", e => {
-    e.preventDefault(); // Prevent default link behavior
-    forms.classList.toggle("show-signup");
+    e.preventDefault();
+    document.querySelector(".forms").classList.toggle("show-signup");
   });
 });
 
-// Signup functionality
+// Function to check if username exists in Firestore
+const isUsernameTaken = async (username) => {
+  const q = query(collection(db, "users"), where("username", "==", username));
+  const querySnapshot = await getDocs(q);
+  return !querySnapshot.empty;
+};
+
+// Generate random username suggestions
+const generateSuggestions = (firstName, lastName) => {
+  const randomNum = Math.floor(1000 + Math.random() * 9000); // Random 4-digit number
+  return [
+    `${firstName}_${lastName}_${randomNum}`,
+    `${firstName}${randomNum}`,
+    `${firstName}_${randomNum}`,
+    `${firstName}${lastName}`,
+  ];
+};
+
+// Signup form submission
 document.getElementById("signupForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Prevent form submission
+  e.preventDefault();
+  const firstName = document.getElementById("signupFirstName").value;
+  const lastName = document.getElementById("signupLastName").value;
+  const username = document.getElementById("signupUsername").value;
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
+
+  // Check if username is already taken
+  if (await isUsernameTaken(username)) {
+    const suggestions = generateSuggestions(firstName, lastName);
+    document.querySelector(".username-error").textContent = `Username is taken. Try: ${suggestions.join(", ")}`;
+    return;
+  }
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Save user info to Firestore
-    await setDoc(doc(db, "testusers", user.uid), {
-      email: user.email,
-      firstName: "Itesh",
-      lastName: "Ambre",
+    // Save user data to Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      firstName,
+      lastName,
+      username,
+      email,
       createdAt: new Date(),
     });
 
     alert("Signup successful! You can now log in.");
-    window.location.href = 'index.html'; // Optionally redirect to login
+    window.location.href = 'index.html'; // Redirect to login
   } catch (error) {
     console.error("Error during signup:", error.message);
     alert("Signup failed. Please try again.");
   }
 });
 
-// Login functionality
+// Login form submission
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Prevent form submission
+  e.preventDefault();
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
@@ -88,22 +109,8 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     localStorage.setItem('loggedInUserId', user.uid);
     window.location.href = 'pages/home.html'; // Redirect to home page
   } catch (error) {
-    const errorCode = error.code;
-    console.error("Sign-in error code:", errorCode);
-    let errorMessage = "An error occurred. Please try again.";
-
-    // Handle specific error codes
-    if (errorCode === 'auth/user-not-found') {
-      errorMessage = 'No user found with this email.';
-    } else if (errorCode === 'auth/wrong-password') {
-      errorMessage = 'Incorrect password. Please try again.';
-    } else if (errorCode === 'auth/invalid-email') {
-      errorMessage = 'The email address is not valid.';
-    } else if (errorCode === 'auth/too-many-requests') {
-      errorMessage = 'Too many failed login attempts. Please try again later.';
-    }
-
-    alert(errorMessage); // Show error message to user
+    console.error("Sign-in error:", error.message);
+    alert("Login failed. Please try again.");
   }
 });
 
