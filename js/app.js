@@ -67,7 +67,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
             firstName: "Itesh",
             lastName:"Ambre",
         };
-      const docRef=doc(db, "users", user.uid);
+      const docRef=doc(db, "testusers", user.uid);
         setDoc(docRef,userData)
         .then(()=>{
             window.location.href='index.html';
@@ -80,10 +80,10 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     .catch((error)=>{
         const errorCode=error.code;
         if(errorCode=='auth/email-already-in-use'){
-            alert('Email Address Already Exists !!!', 'signUpMessage');
+            console.log('Email Address Already Exists !!!', 'signUpMessage');
         }
         else{
-            alert('unable to create User', 'signUpMessage');
+            console.log('unable to create User', 'signUpMessage');
         }
     })
  });
