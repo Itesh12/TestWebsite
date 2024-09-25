@@ -82,7 +82,7 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const user = userCredential.user;
 
     // Save user data to Firestore
-    await setDoc(doc(db, "users", user.uid), {
+    await setDoc(doc(db, "testusers", user.uid), {
       firstName,
       lastName,
       username,
