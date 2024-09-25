@@ -1,32 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Screen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Screen</title>
+    <link rel="stylesheet" href="../css/styles.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="../css/styles.css">
-
-  <!-- Boxicons CSS -->
-  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Boxicons CSS for icons -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
-  <header>
-    <h1 id="userWelcome">Welcome to the Home Page!!!</h1>
-    <button id="logoutButton">Logout</button>
-  </header>
-  <main>
-    <h2>Your Dashboard</h2>
-    <p>Here you can find your latest activities and updates.</p>
-    <a href="profile.html">Go to Profile</a>
-    <a href="settings.html">Settings</a>
-  </main>
+    <!-- Top Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="nav-right">
+            <span class="balance">0.00000000</span>
+            <i class='bx bx-wallet'></i>
+            <div class="dropdown">
+                <button class="dropbtn"><i class='bx bx-user'></i></button>
+                <div class="dropdown-content">
+                    <a href="#">Wallet</a>
+                    <a href="#">Vault</a>
+                    <a href="#">VIP</a>
+                    <a href="#">Affiliate</a>
+                    <a href="#">Statistics</a>
+                    <a href="#">Transactions</a>
+                    <a href="profile.html">My Bets</a>
+                    <a href="settings.html">Settings</a>
+                    <a href="#">Stake Smart</a>
+                    <a href="#">Live Support</a>
+                    <a href="#" id="logoutButton">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <!-- JavaScript -->
-  <script type="module" src="../js/home.js"></script>
+    <!-- Main content -->
+    <main>
+        <h2>Welcome to the Home Page</h2>
+        <p>Your latest updates and activities will appear here.</p>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../js/home.js"></script>
 </body>
-
 </html>
