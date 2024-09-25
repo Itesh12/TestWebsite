@@ -7,7 +7,7 @@
   <title>Home Screen</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
 
   <!-- Boxicons CSS -->
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
@@ -26,7 +26,7 @@
   </main>
 
   <!-- JavaScript -->
-  <script src="js/app.js"></script>
+  <script src="../js/app.js"></script>
 </body>
 
 </html>
