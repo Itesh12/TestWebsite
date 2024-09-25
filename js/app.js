@@ -90,16 +90,7 @@ if (authForm) {
     });
 }
 
-// Check if the user is already logged in and prevent them from going back to login if authenticated
-onAuthStateChanged(auth, (user) => {
-    const currentPath = window.location.pathname;
-    if (user && currentPath.includes('index.html')) {
-        // Redirect to home if already logged in and trying to access login page
-        window.location.href = 'pages/home.html';
-    }
-});
-
-//Check if the user is already logged in and prevent them from going back to login
+// Check if the user is already logged in and prevent them from going back to login
 onAuthStateChanged(auth, (user) => {
     const currentPath = window.location.pathname;
 
@@ -112,6 +103,11 @@ onAuthStateChanged(auth, (user) => {
     if (!user && currentPath.includes('home.html')) {
         window.location.href = '../index.html';
     }
+    
+    // Prevent back navigation to login after login
+    if (user) {
+        history.replaceState(null, null, window.location.href); // Replace the current state
+    }
 });
 
 // Logout logic only for the home page
@@ -121,7 +117,7 @@ if (logoutButton) {
     logoutButton.addEventListener('click', () => {
         // Show loader during logout
         loader.style.display = 'block';
-        
+
         signOut(auth)
             .then(() => {
                 // Successfully logged out, redirect to login page
@@ -134,4 +130,4 @@ if (logoutButton) {
                 loader.style.display = 'none'; // Hide loading indicator
             });
     });
-}
+    }
