@@ -1,0 +1,85 @@
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+    projectId: "YOUR_FIREBASE_PROJECT_ID",
+    storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Variables for UI elements
+const authForm = document.getElementById('authForm');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const authButton = document.getElementById('authButton');
+const toggleLink = document.getElementById('toggleLink');
+const formTitle = document.getElementById('formTitle');
+const errorDiv = document.getElementById('error');
+let isLogin = true;
+
+// Switch between login and register
+toggleLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (isLogin) {
+        formTitle.textContent = 'Register';
+        authButton.textContent = 'Register';
+        toggleLink.textContent = 'Already have an account? Login here';
+        isLogin = false;
+    } else {
+        formTitle.textContent = 'Login';
+        authButton.textContent = 'Login';
+        toggleLink.textContent = "Don't have an account? Register here";
+        isLogin = true;
+    }
+});
+
+// Form submission
+authForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    
+    errorDiv.textContent = ''; // Clear previous errors
+
+    if (isLogin) {
+        // Login logic
+        auth.signInWithEmailAndPassword(email, password)
+            .then(() => {
+                window.location.href = 'pages/home.html'; // Redirect to home on success
+            })
+            .catch((error) => {
+                errorDiv.textContent = error.message;
+            });
+    } else {
+        // Register logic
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(() => {
+                window.location.href = 'pages/home.html'; // Redirect to home on success
+            })
+            .catch((error) => {
+                errorDiv.textContent = error.message;
+            });
+    }
+});
+
+// Check if user is already logged in
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        window.location.href = 'pages/home.html'; // Redirect to home if logged in
+    }
+});
+
+// Logout logic
+const logoutButton = document.getElementById('logoutButton');
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        auth.signOut().then(() => {
+            window.location.href = '../index.html'; // Redirect to login page
+        });
+    });
+}
