@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to the Home Page!</h1>
-        <button id="logoutButton">Logout</button>
-        <div id="loader" class="loader" style="display: none;"></div>
-    </div>
 
-    <script type="module" src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"></script>
-    <script type="module" src="../js/app.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="../js/home.js"></script>
+</head>
+
+<body>
+  <div class="appbar">
+    <div class="profile-icon">
+      <img src="images/profile.png" alt="Profile" id="profileBtn">
+    </div>
+  </div>
+  <div class="welcome-message">
+    <h1>Welcome, <span id="userEmail"></span>!</h1>
+  </div>
+  <div class="drawer" id="drawer">
+    <ul>
+      <li id="profileLink">Profile</li>
+      <li id="logoutBtn">Logout</li>
+    </ul>
+  </div>
 </body>
+
 </html>
