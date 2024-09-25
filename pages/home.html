@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="stylesheet" href="../css/homeStyles.css">
-  <script type="module" src="../js/home.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="appbar">
-    <div class="profile-icon">
-      <img src="images/profile.png" alt="Profile" id="profileBtn">
+    <div class="container">
+        <h1 id="welcomeMessage">Welcome!!!</h1>
+        <button id="profileButton">Profile</button>
+        <button id="logoutButton">Logout</button>
     </div>
-  </div>
-  <div class="welcome-message">
-    <h1>Welcome, <span id="userEmail"></span>!</h1>
-  </div>
-  <div class="drawer" id="drawer">
-    <ul>
-      <li id="profileLink">Profile</li>
-      <li id="logoutBtn">Logout</li>
-    </ul>
-  </div>
-</body>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="app.js"></script>
+</body>
 </html>
