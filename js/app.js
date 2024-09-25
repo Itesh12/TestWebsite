@@ -63,6 +63,8 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     // Save user info to Firestore
     await setDoc(doc(db, "testusers", user.uid), {
       email: user.email,
+      firstName: "Itesh",
+      lastName: "Ambre",
       createdAt: new Date(),
     });
 
