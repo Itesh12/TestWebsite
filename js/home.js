@@ -29,9 +29,10 @@ if (logoutButton) {
       window.location.href = "index.html"; // Redirect to login page
     } catch (error) {
       console.error("Error logging out:", error.message);
+      alert("Error logging out. Please try again."); // Notify user of error
     }
   });
-});
+}
 
 // Load user data on home page
 window.addEventListener("load", async () => {
