@@ -20,27 +20,30 @@ const authButton = document.getElementById('authButton');
 const toggleLink = document.getElementById('toggleLink');
 const formTitle = document.getElementById('formTitle');
 const errorDiv = document.getElementById('error');
-let isLogin = true;
+let isLogin = true; // Flag for whether the form is in login or register mode
 
-// Switch between login and register
+// Toggle between login and register
 toggleLink.addEventListener('click', (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default link behavior
+
     if (isLogin) {
+        // Switch to Register mode
         formTitle.textContent = 'Register';
         authButton.textContent = 'Register';
         toggleLink.textContent = 'Already have an account? Login here';
-        isLogin = false;
+        isLogin = false; // Set the flag to false (register mode)
     } else {
+        // Switch back to Login mode
         formTitle.textContent = 'Login';
         authButton.textContent = 'Login';
         toggleLink.textContent = "Don't have an account? Register here";
-        isLogin = true;
+        isLogin = true; // Set the flag to true (login mode)
     }
 });
 
 // Form submission
 authForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission
     const email = emailInput.value;
     const password = passwordInput.value;
     
@@ -53,7 +56,7 @@ authForm.addEventListener('submit', (e) => {
                 window.location.href = 'pages/home.html'; // Redirect to home on success
             })
             .catch((error) => {
-                errorDiv.textContent = error.message;
+                errorDiv.textContent = error.message; // Show error on failed login
             });
     } else {
         // Register logic
@@ -62,24 +65,14 @@ authForm.addEventListener('submit', (e) => {
                 window.location.href = 'pages/home.html'; // Redirect to home on success
             })
             .catch((error) => {
-                errorDiv.textContent = error.message;
+                errorDiv.textContent = error.message; // Show error on failed registration
             });
     }
 });
 
-// Check if user is already logged in
+// Check if the user is already logged in
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        window.location.href = 'pages/home.html'; // Redirect to home if logged in
+        window.location.href = 'pages/home.html'; // Redirect to home if already logged in
     }
 });
-
-// Logout logic
-const logoutButton = document.getElementById('logoutButton');
-if (logoutButton) {
-    logoutButton.addEventListener('click', () => {
-        auth.signOut().then(() => {
-            window.location.href = '../index.html'; // Redirect to login page
-        });
-    });
-}
