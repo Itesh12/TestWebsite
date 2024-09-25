@@ -64,11 +64,16 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     await setDoc(doc(db, "testusers", user.uid), {
       email: user.email,
       firstName: "Itesh",
-            lastName:"Ambre",
+      lastName: "Ambre",
       createdAt: new Date(),
     });
 
-  });
+    alert("Signup successful! You can now log in.");
+    window.location.href = 'index.html'; // Optionally redirect to login
+  } catch (error) {
+    console.error("Error during signup:", error.message);
+    alert("Signup failed. Please try again.");
+  }
 });
 
 // Login functionality
