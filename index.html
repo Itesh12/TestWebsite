@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,19 +11,18 @@
   <!-- Boxicons CSS -->
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
   <section class="container forms">
     <!-- Login Form -->
     <div class="form login">
       <div class="form-content">
-        <header>Login!!</header>
+        <header>Login</header>
         <form id="loginForm">
           <div class="field input-field">
-            <input type="email" placeholder="Email" class="input" id="loginEmail">
+            <input type="email" placeholder="Email" class="input" id="loginEmail" required>
           </div>
           <div class="field input-field">
-            <input type="password" placeholder="Password" class="password" id="loginPassword">
+            <input type="password" placeholder="Password" class="password" id="loginPassword" required>
             <i class='bx bx-hide eye-icon'></i>
           </div>
           <div class="form-link">
@@ -39,10 +37,9 @@
         </div>
       </div>
       <div class="line"></div>
-      
       <div class="media-options">
         <a href="#" class="field google">
-          <img src="images/googleIcon.png" alt="" class="google-img">
+          <img src="images/googleIcon.png" alt="Google" class="google-img">
           <span>Login with Google</span>
         </a>
       </div>
@@ -54,13 +51,20 @@
         <header>Signup</header>
         <form id="signupForm">
           <div class="field input-field">
-            <input type="email" placeholder="Email" class="input" id="signupEmail">
+            <input type="text" placeholder="First Name" class="input" id="signupFirstName" required>
           </div>
           <div class="field input-field">
-            <input type="password" placeholder="Create password" class="password" id="signupPassword">
+            <input type="text" placeholder="Last Name" class="input" id="signupLastName" required>
           </div>
           <div class="field input-field">
-            <input type="password" placeholder="Confirm password" class="password">
+            <input type="text" placeholder="Username" class="input" id="signupUsername" required>
+            <span class="username-error"></span> <!-- Error message for username -->
+          </div>
+          <div class="field input-field">
+            <input type="email" placeholder="Email" class="input" id="signupEmail" required>
+          </div>
+          <div class="field input-field">
+            <input type="password" placeholder="Create password" class="password" id="signupPassword" required>
             <i class='bx bx-hide eye-icon'></i>
           </div>
           <div class="field button-field">
@@ -72,11 +76,10 @@
         </div>
       </div>
       <div class="line"></div>
-      
       <div class="media-options">
         <a href="#" class="field google">
           <img src="images/googleIcon.png" alt="Google" class="google-img">
-          <span>Login with Google</span>
+          <span>Signup with Google</span>
         </a>
       </div>
     </div>
@@ -85,5 +88,4 @@
   <!-- JavaScript -->
   <script type="module" src="js/app.js"></script>
 </body>
-
-</html>
+              </html>
