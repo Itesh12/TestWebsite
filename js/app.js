@@ -99,6 +99,21 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+//Check if the user is already logged in and prevent them from going back to login
+onAuthStateChanged(auth, (user) => {
+    const currentPath = window.location.pathname;
+
+    // If the user is authenticated and they are on the login page (index.html), redirect to home
+    if (user && currentPath.includes('index.html')) {
+        window.location.href = 'pages/home.html';
+    }
+
+    // If the user is not authenticated and they are on home.html, redirect them to login page
+    if (!user && currentPath.includes('home.html')) {
+        window.location.href = '../index.html';
+    }
+});
+
 // Logout logic only for the home page
 const logoutButton = document.getElementById('logoutButton');
 
