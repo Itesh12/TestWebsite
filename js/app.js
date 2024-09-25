@@ -66,7 +66,6 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
       createdAt: new Date(),
     });
 
-    alert("Signup successful! You can now log in.");
     forms.classList.remove("show-signup"); // Show login form
   } catch (error) {
     console.error("Error signing up:", error.message);
@@ -82,8 +81,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    alert("Login successful!");
-    window.location.href = "home.html"; // Redirect to home page
+    window.location.href = "pages/home.html"; // Redirect to home page
   } catch (error) {
     console.error("Error logging in:", error.message);
     alert(error.message);
