@@ -23,7 +23,7 @@ const firebaseConfig = {
     const loggedInUserId=localStorage.getItem('loggedInUserId');
     if(loggedInUserId){
         console.log(user);
-        const docRef = doc(db, "users", loggedInUserId);
+        const docRef = doc(db, "testusers", loggedInUserId);
         getDoc(docRef)
         .then((docSnap)=>{
             if(docSnap.exists()){
