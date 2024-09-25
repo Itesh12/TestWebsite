@@ -79,14 +79,23 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "pages/home.html"; // Redirect to home page
-  } catch (error) {
-    console.error("Error logging in:", error.message);
-    alert(error.message);
-  }
-});
+  signInWithEmailAndPassword(auth, email,password)
+    .then((userCredential)=>{
+        showMessage('login is successful', 'signInMessage');
+        const user=userCredential.user;
+        localStorage.setItem('loggedInUserId', user.uid);
+        window.location.href='homepage.html';
+    })
+    .catch((error)=>{
+        const errorCode=error.code;
+        if(errorCode==='auth/invalid-credential'){
+            showMessage('Incorrect Email or Password', 'signInMessage');
+        }
+        else{
+            showMessage('Account does not Exist', 'signInMessage');
+        }
+    })
+ });
 
 // Logout functionality
 const logout = async () => {
