@@ -1,60 +1,32 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import {getAuth, onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-import{getFirestore, getDoc, doc} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
+<!DOCTYPE html>
+<html lang="en">
 
-// Initialize Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyDPneL6Pk9fOpMiTilqoHcCDfG3pHD_Q9g",
-    authDomain: "explora-3c682.firebaseapp.com",
-    projectId: "explora-3c682",
-    storageBucket: "explora-3c682.appspot.com",
-    messagingSenderId: "644439159668",
-    appId: "1:644439159668:web:44c756d6507c6531b47221",
-    measurementId: "G-62HJXTP4PM"
-};
- 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Screen</title>
 
-  const auth=getAuth();
-  const db=getFirestore();
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css">
 
-  onAuthStateChanged(auth, (user)=>{
-    const loggedInUserId=localStorage.getItem('loggedInUserId');
-    if(loggedInUserId){
-        console.log(user);
-        const docRef = doc(db, "testusers", loggedInUserId);
-        getDoc(docRef)
-        .then((docSnap)=>{
-            if(docSnap.exists()){
-                const userData=docSnap.data();
-                document.getElementById('loggedUserFName').innerText=userData.firstName;
-                document.getElementById('loggedUserEmail').innerText=userData.email;
-                document.getElementById('loggedUserLName').innerText=userData.lastName;
+  <!-- Boxicons CSS -->
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+</head>
 
-            }
-            else{
-                console.log("no document found matching id")
-            }
-        })
-        .catch((error)=>{
-            console.log("Error getting document");
-        })
-    }
-    else{
-        console.log("User Id not Found in Local storage")
-    }
-  })
+<body>
+  <header>
+    <h1>Welcome to the Home Page!</h1>
+    <button id="logoutButton">Logout</button>
+  </header>
+  <main>
+    <h2>Your Dashboard</h2>
+    <p>Here you can find your latest activities and updates.</p>
+    <a href="profile.html">Go to Profile</a>
+    <a href="settings.html">Settings</a>
+  </main>
 
-  const logoutButton=document.getElementById('logout');
+  <!-- JavaScript -->
+  <script src="js/app.js"></script>
+</body>
 
-  logoutButton.addEventListener('click',()=>{
-    localStorage.removeItem('loggedInUserId');
-    signOut(auth)
-    .then(()=>{
-        window.location.href='../index.html';
-    })
-    .catch((error)=>{
-        console.error('Error Signing out:', error);
-    })
-  })
+</html>
