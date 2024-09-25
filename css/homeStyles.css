@@ -51,9 +51,10 @@
 .dropdown-content {
     display: none;
     position: absolute;
+    right: 0;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -75,6 +76,7 @@
 /* Main content styles */
 main {
     padding: 20px;
+    text-align: center;
 }
 
 h2 {
@@ -84,4 +86,88 @@ h2 {
 
 p {
     font-size: 18px;
+}
+
+/* Responsive design */
+
+/* Mobile view */
+@media only screen and (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-right i {
+        margin-right: 0;
+    }
+
+    .balance {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .dropdown-content {
+        right: 0;
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+/* Tablet view */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .navbar {
+        padding: 15px 30px;
+    }
+
+    .nav-right .balance {
+        font-size: 18px;
+    }
+
+    .nav-right i {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+}
+
+/* Desktop view */
+@media only screen and (min-width: 1025px) {
+    .navbar {
+        padding: 20px 40px;
+    }
+
+    .nav-right .balance {
+        font-size: 18px;
+    }
+
+    .nav-right i {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 20px;
+    }
 }
