@@ -1,35 +1,41 @@
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
 
-const auth = getAuth();
-const user = auth.currentUser;
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-if (user) {
-  document.getElementById("userEmail").innerText = user.email;
-} else {
-  window.location.href = "index.html"; // Redirect to login if not authenticated
-}
+const profileButton = document.getElementById('profileButton');
+const welcomeMessage = document.getElementById('welcomeMessage');
+const logoutButton = document.getElementById('logoutButton');
 
-// Show/hide drawer
-const profileBtn = document.getElementById("profileBtn");
-const drawer = document.getElementById("drawer");
-
-profileBtn.addEventListener("click", () => {
-  drawer.classList.toggle("show");
+// Display welcome message with user's email
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        welcomeMessage.textContent = `Welcome, ${user.email}!`;
+    } else {
+        window.location.href = 'login.html'; // Redirect to login if not logged in
+    }
 });
 
 // Logout functionality
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-  await logout();
+logoutButton.addEventListener('click', async () => {
+    try {
+        await firebase.auth().signOut();
+        window.location.href = 'login.html';
+    } catch (error) {
+        console.error('Error logging out: ', error);
+    }
 });
 
-// Logout function from app.js
-const logout = async () => {
-  const auth = getAuth();
-  try {
-    await auth.signOut();
-    alert("Logged out successfully!");
-    window.location.href = "index.html"; // Redirect to login page
-  } catch (error) {
-    console.error("Error logging out:", error.message);
-  }
-};
+// Profile button functionality
+profileButton.addEventListener('click', () => {
+    alert("Profile button clicked!"); // Placeholder action
+    // You can redirect to a profile page or display user information here
+});
