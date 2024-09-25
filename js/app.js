@@ -42,31 +42,32 @@ toggleLink.addEventListener('click', (e) => {
     }
 });
 
-// Form submission
+// Form submission logic for login/register
 authForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent the default form submission
     const email = emailInput.value;
     const password = passwordInput.value;
     
-    errorDiv.textContent = ''; // Clear previous errors
+    // Clear previous error messages
+    errorDiv.textContent = '';
 
     if (isLogin) {
         // Login logic
         auth.signInWithEmailAndPassword(email, password)
             .then(() => {
-                window.location.href = 'pages/home.html'; // Redirect to home on success
+                window.location.href = 'pages/home.html'; // Redirect to home on successful login
             })
             .catch((error) => {
-                errorDiv.textContent = error.message; // Show error on failed login
+                errorDiv.textContent = `Login failed: ${error.message}`; // Show error on failed login
             });
     } else {
         // Register logic
         auth.createUserWithEmailAndPassword(email, password)
             .then(() => {
-                window.location.href = 'pages/home.html'; // Redirect to home on success
+                window.location.href = 'pages/home.html'; // Redirect to home on successful registration
             })
             .catch((error) => {
-                errorDiv.textContent = error.message; // Show error on failed registration
+                errorDiv.textContent = `Registration failed: ${error.message}`; // Show error on failed registration
             });
     }
 });
@@ -74,6 +75,6 @@ authForm.addEventListener('submit', (e) => {
 // Check if the user is already logged in
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        window.location.href = 'pages/home.html'; // Redirect to home if already logged in
+        window.location.href = 'pages/home.html'; // Redirect to home if user is already logged in
     }
 });
