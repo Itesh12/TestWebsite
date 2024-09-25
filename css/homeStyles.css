@@ -1,0 +1,42 @@
+.appbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  background-color: #f1f1f1;
+}
+
+.profile-icon {
+  cursor: pointer;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.drawer {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  display: none;
+}
+
+.drawer.show {
+  display: block;
+}
+
+.drawer ul {
+  list-style: none;
+  padding: 10px;
+}
+
+.drawer li {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.drawer li:hover {
+  background-color: #f0f0f0;
+}
