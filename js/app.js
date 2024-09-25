@@ -1,6 +1,6 @@
 // Import necessary Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -25,74 +25,98 @@ const authButton = document.getElementById('authButton');
 const toggleLink = document.getElementById('toggleLink');
 const formTitle = document.getElementById('formTitle');
 const errorDiv = document.getElementById('error');
+const loader = document.getElementById('loader'); // For loading indicator
 let isLogin = true; // Flag for whether the form is in login or register mode
 
 // Toggle between login and register
-toggleLink.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent the default link behavior
+if (toggleLink) {
+    toggleLink.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent the default link behavior
 
-    if (isLogin) {
-        // Switch to Register mode
-        formTitle.textContent = 'Register';
-        authButton.textContent = 'Register';
-        toggleLink.textContent = 'Already have an account? Login here';
-        isLogin = false; // Set the flag to false (register mode)
-    } else {
-        // Switch back to Login mode
-        formTitle.textContent = 'Login';
-        authButton.textContent = 'Login';
-        toggleLink.textContent = "Don't have an account? Register here";
-        isLogin = true; // Set the flag to true (login mode)
-    }
-});
+        if (isLogin) {
+            // Switch to Register mode
+            formTitle.textContent = 'Register';
+            authButton.textContent = 'Register';
+            toggleLink.textContent = 'Already have an account? Login here';
+            isLogin = false; // Set the flag to false (register mode)
+        } else {
+            // Switch back to Login mode
+            formTitle.textContent = 'Login';
+            authButton.textContent = 'Login';
+            toggleLink.textContent = "Don't have an account? Register here";
+            isLogin = true; // Set the flag to true (login mode)
+        }
+    });
+}
 
 // Form submission logic for login/register
-authForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent the default form submission
-    const email = emailInput.value;
-    const password = passwordInput.value;
+if (authForm) {
+    authForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent the default form submission
+        const email = emailInput.value;
+        const password = passwordInput.value;
 
-    // Clear previous error messages
-    errorDiv.textContent = '';
+        // Clear previous error messages
+        errorDiv.textContent = '';
 
-    if (isLogin) {
-        // Login logic
-        signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                window.location.href = 'pages/home.html'; // Redirect to home on successful login
-            })
-            .catch((error) => {
-                errorDiv.textContent = `Login failed: ${error.message}`; // Show error on failed login
-            });
-    } else {
-        // Register logic
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                window.location.href = 'pages/home.html'; // Redirect to home on successful registration
-            })
-            .catch((error) => {
-                errorDiv.textContent = `Registration failed: ${error.message}`; // Show error on failed registration
-            });
-    }
-});
+        // Show loading indicator
+        loader.style.display = 'block';
 
-// Check if the user is already logged in
+        if (isLogin) {
+            // Login logic
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    window.location.href = 'pages/home.html'; // Redirect to home on successful login
+                })
+                .catch((error) => {
+                    errorDiv.textContent = `Login failed: ${error.message}`; // Show error on failed login
+                })
+                .finally(() => {
+                    loader.style.display = 'none'; // Hide loading indicator
+                });
+        } else {
+            // Register logic
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    window.location.href = 'pages/home.html'; // Redirect to home on successful registration
+                })
+                .catch((error) => {
+                    errorDiv.textContent = `Registration failed: ${error.message}`; // Show error on failed registration
+                })
+                .finally(() => {
+                    loader.style.display = 'none'; // Hide loading indicator
+                });
+        }
+    });
+}
+
+// Check if the user is already logged in and prevent them from going back to login if authenticated
 onAuthStateChanged(auth, (user) => {
-    if (user) {
-        window.location.href = 'pages/home.html'; // Redirect to home if user is already logged in
+    const currentPath = window.location.pathname;
+    if (user && currentPath.includes('index.html')) {
+        // Redirect to home if already logged in and trying to access login page
+        window.location.href = 'pages/home.html';
     }
 });
 
-// Get the logout button
+// Logout logic only for the home page
 const logoutButton = document.getElementById('logoutButton');
 
-// Logout functionality
-logoutButton.addEventListener('click', () => {
-    signOut(auth).then(() => {
-        // Successfully logged out, redirect to login page
-        window.location.href = '../index.html';
-    }).catch((error) => {
-        // Handle any errors during logout
-        console.error('Error during logout:', error);
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        // Show loader during logout
+        loader.style.display = 'block';
+        
+        signOut(auth)
+            .then(() => {
+                // Successfully logged out, redirect to login page
+                window.location.href = '../index.html';
+            })
+            .catch((error) => {
+                console.error('Error during logout:', error);
+            })
+            .finally(() => {
+                loader.style.display = 'none'; // Hide loading indicator
+            });
     });
-});
+}
