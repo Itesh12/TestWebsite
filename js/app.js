@@ -76,28 +76,36 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
 });
 
 // Login functionality
+// Login functionality
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault(); // Prevent form submission
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  signInWithEmailAndPassword(auth, email,password)
-    .then((userCredential)=>{
-        showMessage('login is successful', 'signInMessage');
-        const user=userCredential.user;
-        localStorage.setItem('loggedInUserId', user.uid);
-        window.location.href='homepage.html';
-    })
-    .catch((error)=>{
-        const errorCode=error.code;
-        if(errorCode==='auth/invalid-credential'){
-            showMessage('Incorrect Email or Password', 'signInMessage');
-        }
-        else{
-            showMessage('Account does not Exist', 'signInMessage');
-        }
-    })
- });
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    localStorage.setItem('loggedInUserId', user.uid);
+    window.location.href = 'homepage.html'; // Redirect to home page
+  } catch (error) {
+    const errorCode = error.code;
+    console.error("Sign-in error code:", errorCode);
+    let errorMessage = "An error occurred. Please try again.";
+
+    // Handle specific error codes
+    if (errorCode === 'auth/user-not-found') {
+      errorMessage = 'No user found with this email.';
+    } else if (errorCode === 'auth/wrong-password') {
+      errorMessage = 'Incorrect password. Please try again.';
+    } else if (errorCode === 'auth/invalid-email') {
+      errorMessage = 'The email address is not valid.';
+    } else if (errorCode === 'auth/too-many-requests') {
+      errorMessage = 'Too many failed login attempts. Please try again later.';
+    }
+
+    alert(errorMessage); // Show error message to user
+  }
+});
 
 // Logout functionality
 const logout = async () => {
