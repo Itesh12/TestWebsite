@@ -1,32 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+// home.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Screen</title>
+// Firebase configuration (Add your actual Firebase config)
+const firebaseConfig = {
+  apiKey: "AIzaSyDPneL6Pk9fOpMiTilqoHcCDfG3pHD_Q9g",
+  authDomain: "explora-3c682.firebaseapp.com",
+  projectId: "explora-3c682",
+  storageBucket: "explora-3c682.appspot.com",
+  messagingSenderId: "644439159668",
+  appId: "1:644439159668:web:44c756d6507c6531b47221",
+  measurementId: "G-62HJXTP4PM"
+};
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="../css/styles.css">
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
 
-  <!-- Boxicons CSS -->
-  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-</head>
+// Logout functionality
+const logoutButton = document.getElementById("logoutButton");
+if (logoutButton) {
+  logoutButton.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      alert("Logged out successfully!");
+      window.location.href = "index.html"; // Redirect to login page
+    } catch (error) {
+      console.error("Error logging out:", error.message);
+    }
+  });
+});
 
-<body>
-  <header>
-    <h1>Welcome to the Home Page!</h1>
-    <button id="logoutButton">Logout</button>
-  </header>
-  <main>
-    <h2>Your Dashboard</h2>
-    <p>Here you can find your latest activities and updates.</p>
-    <a href="profile.html">Go to Profile</a>
-    <a href="settings.html">Settings</a>
-  </main>
-
-  <!-- JavaScript -->
-  <script src="../js/app.js"></script>
-</body>
-
-</html>
+// Load user data on home page
+window.addEventListener("load", async () => {
+  const userId = localStorage.getItem('loggedInUserId');
+  if (userId) {
+    const userDoc = await getDoc(doc(db, "testusers", userId));
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      document.getElementById("userWelcome").innerText = `Welcome, ${userData.firstName} ${userData.lastName}`;
+    } else {
+      console.error("No user data found!");
+    }
+  } else {
+    alert("User not logged in.");
+    window.location.href = "index.html"; // Redirect to login if not logged in
+  }
+});
