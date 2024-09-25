@@ -1,42 +1,87 @@
-.appbar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px;
-  background-color: #f1f1f1;
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.profile-icon {
-  cursor: pointer;
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f1f2f;
+    padding: 10px 20px;
 }
 
-.welcome-message {
-  text-align: center;
-  margin-top: 50px;
+.navbar .logo img {
+    height: 40px;
 }
 
-.drawer {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background-color: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  display: none;
+.nav-right {
+    display: flex;
+    align-items: center;
 }
 
-.drawer.show {
-  display: block;
+.nav-right .balance {
+    color: #fff;
+    margin-right: 10px;
 }
 
-.drawer ul {
-  list-style: none;
-  padding: 10px;
+.nav-right i {
+    color: #fff;
+    font-size: 24px;
+    margin-right: 20px;
 }
 
-.drawer li {
-  padding: 10px 20px;
-  cursor: pointer;
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.drawer li:hover {
-  background-color: #f0f0f0;
+.dropbtn {
+    background-color: #1f1f2f;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 24px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+p {
+    font-size: 18px;
 }
