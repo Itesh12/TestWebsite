@@ -1,118 +1,99 @@
 <!DOCTYPE html>
-<!-- Coding by CodingLab | www.codinglabweb.com-->
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Responsive Login and Signup Form </title>
+  <title>Responsive Login and Signup Form</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="style/styles.css">
 
   <!-- Boxicons CSS -->
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-
 </head>
 
 <body>
   <section class="container forms">
+    <!-- Login Form -->
     <div class="form login">
       <div class="form-content">
         <header>Login</header>
-        <form action="#">
+        <form id="loginForm">
           <div class="field input-field">
-            <input type="email" placeholder="Email" class="input">
+            <input type="email" placeholder="Email" class="input" id="loginEmail">
           </div>
-
           <div class="field input-field">
-            <input type="password" placeholder="Password" class="password">
+            <input type="password" placeholder="Password" class="password" id="loginPassword">
             <i class='bx bx-hide eye-icon'></i>
           </div>
-
           <div class="form-link">
             <a href="#" class="forgot-pass">Forgot password?</a>
           </div>
-
           <div class="field button-field">
-            <button>Login</button>
+            <button type="submit">Login</button>
           </div>
         </form>
-
         <div class="form-link">
           <span>Don't have an account? <a href="#" class="link signup-link">Signup</a></span>
         </div>
       </div>
-
       <div class="line"></div>
-
       <div class="media-options">
         <a href="#" class="field facebook">
           <i class='bx bxl-facebook facebook-icon'></i>
           <span>Login with Facebook</span>
         </a>
       </div>
-
       <div class="media-options">
         <a href="#" class="field google">
-          <img src="images/googleIcon.png" alt="" class="google-img">
+          <img src="images/google.png" alt="" class="google-img">
           <span>Login with Google</span>
         </a>
       </div>
-
     </div>
 
     <!-- Signup Form -->
-
     <div class="form signup">
       <div class="form-content">
         <header>Signup</header>
-        <form action="#">
+        <form id="signupForm">
           <div class="field input-field">
-            <input type="email" placeholder="Email" class="input">
+            <input type="email" placeholder="Email" class="input" id="signupEmail">
           </div>
-
           <div class="field input-field">
-            <input type="password" placeholder="Create password" class="password">
+            <input type="password" placeholder="Create password" class="password" id="signupPassword">
           </div>
-
           <div class="field input-field">
             <input type="password" placeholder="Confirm password" class="password">
             <i class='bx bx-hide eye-icon'></i>
           </div>
-
           <div class="field button-field">
-            <button>Signup</button>
+            <button type="submit">Signup</button>
           </div>
         </form>
-
         <div class="form-link">
           <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
         </div>
       </div>
-
       <div class="line"></div>
-
       <div class="media-options">
         <a href="#" class="field facebook">
           <i class='bx bxl-facebook facebook-icon'></i>
           <span>Login with Facebook</span>
         </a>
       </div>
-
       <div class="media-options">
         <a href="#" class="field google">
-          <img src="images/googleIcon.png" alt="Google" class="google-img">
+          <img src="images/google.png" alt="Google" class="google-img">
           <span>Login with Google</span>
         </a>
       </div>
-
     </div>
   </section>
 
   <!-- JavaScript -->
-  <script src="js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 
 </html>
