@@ -56,37 +56,20 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
 
-  const auth=getAuth();
-    const db=getFirestore();
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential)=>{
-        const user=userCredential.user;
-        const userData={
-            email: email,
-            firstName: "Itesh",
+    // Save user info to Firestore
+    await setDoc(doc(db, "testusers", user.uid), {
+      email: user.email,
+      firstName: "Itesh",
             lastName:"Ambre",
-        };
-      const docRef=doc(db, "testusers", user.uid);
-        setDoc(docRef,userData)
-        .then(()=>{
-            window.location.href='index.html';
-        })
-        .catch((error)=>{
-            console.error("error writing document", error);
+      createdAt: new Date(),
+    });
 
-        });
-    })
-    .catch((error)=>{
-        const errorCode=error.code;
-        if(errorCode=='auth/email-already-in-use'){
-            console.log('Email Address Already Exists !!!', 'signUpMessage');
-        }
-        else{
-            console.log('unable to create User', 'signUpMessage');
-        }
-    })
- });
+  });
+});
 
 // Login functionality
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
